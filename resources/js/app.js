@@ -7,8 +7,10 @@ import lang from 'element-ui/lib/locale/lang/es'
 import locale from 'element-ui/lib/locale'
 import veeSpanish from 'vee-validate/dist/locale/es'
 
-// Plugins
 
+// Plugins
+import {Loading} from 'element-ui'
+import Charts from 'v-charts'
 // router setup
 import routes from './routes/routes'
 
@@ -20,6 +22,8 @@ import VueResource from 'vue-resource'
 Vue.use(VueRouter)
 Vue.use(VueResource)
 Vue.use(VueNotify)
+Vue.use(Charts)
+Vue.use(Loading)
 // Vue.use(SideBar, {sidebarLinks: sidebarLinks})
 Vue.use(VeeValidate, {
     locale: 'es',

@@ -17,4 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('precio', 'PrecioController');
+Route::apiResource('precios', 'PrecioController');
+Route::get('precios/{tipoP}/{producto}', 'PrecioController@custom');
+Route::get('precios/{tipoP}/{producto}/{sector}', 'PrecioController@productoSector');

@@ -3,22 +3,36 @@
 import Dashboard from '../components/Dashboard.vue'
 import NotFound from '../components/NotFoundPage.vue'
 
-import HomeContent from '../components/DashboardContent.vue'
-
-
-const Foo = { template: '<div>foo</div>' }
-const Bar = { template: '<div>bar</div>' }
+import Home from '../components/views/Home.vue'
+import Graphtest from '../components/views/GraphTest.vue'
+import Welcome from '../components/views/Welcome.vue'
+import BuscarProducto from '../components/views/BuscarProducto.vue'
 
 const routes = [
   {
     path: '/',
     component: Dashboard,
-    redirect: '/home',
+    redirect: '/welcome',
     children:[
       {
         path:'home',
         name:'Home',
-        component: HomeContent
+        component: Home
+      },
+      {
+        path:'test',
+        name:'Test',
+        component: Graphtest
+      },
+      {
+        path:'welcome',
+        name:'welcome',
+        component: Welcome
+      },
+      {
+        path:'buscar',
+        name:'buscar producto',
+        component: BuscarProducto
       }
     ]
   },

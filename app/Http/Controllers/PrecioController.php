@@ -13,9 +13,12 @@ class PrecioController extends Controller
      */
     public function index()
     {
+      return Precio::All();
+      /*
         return response()->json(
             $precio = Precio::query()
                 ->get(),200);
+      */
     }
 
     /**
@@ -51,37 +54,24 @@ class PrecioController extends Controller
       
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Precio  $comuna
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Comuna $comuna)
+    public function custom($tipoP, $producto) 
     {
-        //
+      $precios = Precio::where('tipo_producto', $tipoP)
+                        ->where('producto', $producto)
+                        ->get();
+                        
+      return $precios;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Precio  $comuna
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Comuna $comuna)
+    public function productoSector($tipoP, $producto, $sector) 
     {
-        //
+      $precios = Precio::where('tipo_producto', $tipoP)
+                        ->where('producto', $producto)
+                        ->where('sector', $sector)
+                        ->get();
+                        
+      return $precios;
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Precio  $comuna
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Comuna $comuna)
-    {
-        //
-    }
+  
+  
 }

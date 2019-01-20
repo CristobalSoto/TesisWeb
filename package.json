@@ -34,5 +34,9 @@
         "vue-resource": "^1.5.1",
         "vue-router": "^3.0.1",
         "element-ui": "^2.4.11"
+    },
+    "dependencies": {
+        "echarts": "^4.2.0-rc.2",
+        "v-charts": "^1.19.0"
     }
 }
