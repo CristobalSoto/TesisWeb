@@ -18,5 +18,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('precios', 'PrecioController');
-Route::get('precios/{tipoP}/{producto}', 'PrecioController@custom');
-Route::get('precios/{tipoP}/{producto}/{sector}', 'PrecioController@productoSector');
+
+Route::get('precios/{tipoProducto}/{producto}', 'PrecioController@custom');
+Route::get('precios/{tipoProducto}', 'PrecioController@productoData');
+Route::get('precios/{tipoProducto}/{producto}/{sector}', 'PrecioController@productoSector');
+
+
+Route::get('regiones', 'DatosParametricosController@regiones');
+Route::get('sectores/{region}', 'DatosParametricosController@sectores');
+
+Route::get('tipos-producto', 'DatosParametricosController@tiposProducto');
+Route::get('productos/{tipoProducto}', 'DatosParametricosController@productos');

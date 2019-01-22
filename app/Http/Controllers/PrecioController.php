@@ -22,27 +22,6 @@ class PrecioController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-       
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \App\Precio  $precio
@@ -54,18 +33,25 @@ class PrecioController extends Controller
       
     }
 
-    public function custom($tipoP, $producto) 
+
+    public function productoData($tipoProducto) {
+      $precios = Precio::where('tipo_producto', $tipoProducto)
+                        ->get();
+                        
+      return $precios;
+    }
+    public function custom($tipoProducto, $producto) 
     {
-      $precios = Precio::where('tipo_producto', $tipoP)
+      $precios = Precio::where('tipo_producto', $tipoProducto)
                         ->where('producto', $producto)
                         ->get();
                         
       return $precios;
     }
 
-    public function productoSector($tipoP, $producto, $sector) 
+    public function productoSector($tipoProducto, $producto, $sector) 
     {
-      $precios = Precio::where('tipo_producto', $tipoP)
+      $precios = Precio::where('tipo_producto', $tipoProducto)
                         ->where('producto', $producto)
                         ->where('sector', $sector)
                         ->get();

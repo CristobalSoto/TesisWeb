@@ -3,8 +3,7 @@
 import Dashboard from '../components/Dashboard.vue'
 import NotFound from '../components/NotFoundPage.vue'
 
-import Home from '../components/views/Home.vue'
-import Graphtest from '../components/views/GraphTest.vue'
+import DataGraphs from '../components/views/DataGraphs.vue'
 import Welcome from '../components/views/Welcome.vue'
 import BuscarProducto from '../components/views/BuscarProducto.vue'
 
@@ -15,14 +14,9 @@ const routes = [
     redirect: '/welcome',
     children:[
       {
-        path:'home',
-        name:'Home',
-        component: Home
-      },
-      {
-        path:'test',
-        name:'Test',
-        component: Graphtest
+        path:'datos',
+        name:'Primera página de gráficos',
+        component: DataGraphs
       },
       {
         path:'welcome',
