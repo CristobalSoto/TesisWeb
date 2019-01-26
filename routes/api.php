@@ -19,10 +19,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::apiResource('precios', 'PrecioController');
 
-Route::get('precios/{tipoProducto}/{producto}', 'PrecioController@custom');
-Route::get('precios/{tipoProducto}', 'PrecioController@productoData');
-Route::get('precios/{tipoProducto}/{producto}/{sector}', 'PrecioController@productoSector');
 
+Route::get('precios-search/{tipoProducto}/{producto}', 'PrecioController@custom');
+Route::get('precios-search/{tipoProducto}', 'PrecioController@productoData');
+Route::get('precios-search/{tipoProducto}/{producto}/{sector}', 'PrecioController@productoSector');
+Route::get('productos-mensuales/{tipoProducto}/{ano}', 'PrecioController@productosMensuales');
 
 Route::get('regiones', 'DatosParametricosController@regiones');
 Route::get('sectores/{region}', 'DatosParametricosController@sectores');

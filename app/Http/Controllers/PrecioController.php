@@ -35,11 +35,25 @@ class PrecioController extends Controller
 
 
     public function productoData($tipoProducto) {
-      $precios = Precio::where('tipo_producto', $tipoProducto)
+      $precios = Precio::
+                        where('tipo_producto', $tipoProducto)
+                        //->where('fecha_inicio', 'LIKE', '%12/2008%')
                         ->get();
                         
       return $precios;
     }
+
+    public function productosMensuales($tipoProducto, $ano) {
+
+      $anoQuery = '%'.$ano.'%';
+      $precios = Precio::
+                        where('tipo_producto', $tipoProducto)
+                        ->where('fecha_inicio', 'LIKE', $anoQuery)
+                        ->get(); 
+                        
+      return $precios;
+    }
+
     public function custom($tipoProducto, $producto) 
     {
       $precios = Precio::where('tipo_producto', $tipoProducto)
