@@ -6,7 +6,7 @@
           <span> <i class="fas fa-bars"></i> Menú</span>
         </h6>
           <li class="nav-item">
-            <a class="nav-link" href="/#/welcome">
+            <a class="nav-link" href="/#/buscar">
               <i class="fas fa-apple-alt"></i>
               Buscar producto
             </a>

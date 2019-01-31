@@ -2,39 +2,46 @@
 <div>
   <div class="row">
     <div class="col-md-6 mt-3">
-      <h1 class="h2">Estadísticas</h1>
-    </div>
-    <div class="col-md-6 mt-4">
-      <el-select v-model="tipoProducto" placeholder="Producto">
-        <el-option 
-          v-for="item in options.tipoProducto" 
-          :key="item.nombre" 
-          :label="item.nombre" 
-          :value="item.nombre">
-        </el-option>
-      </el-select>
-      <el-select v-model="medidaTiempo" placeholder="Tiempo">
-        <el-option 
-        v-for="item in options.tiempo" 
-        :key="item.metric" 
-        :label="item.metric" 
-        :value="item.metric">
-        </el-option>
-      </el-select>
+      <h1 class="h2">Datos estadísticos</h1>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-      <button class="btn btn-primary" @click="getData">Cargar datos</button>
-      <ve-line
-        :data="chartData"
-        v-loading="isLoading"
-        :data-empty="dataEmpty"
-        >
-      </ve-line>
+  <div class="card">
+    <div class="row">
+      <div class="col-md-6 mt-3">
+        <h5 class="card-title ml-1">Variación productos en el tiempo</h5>
+      </div>
+      <div class="col-md-6 mt-4">
+        <el-select v-model="tipoProducto" placeholder="Producto">
+          <el-option 
+            v-for="item in options.tipoProducto" 
+            :key="item.nombre" 
+            :label="item.nombre" 
+            :value="item.nombre">
+          </el-option>
+        </el-select>
+        <el-select v-model="medidaTiempo" placeholder="Tiempo">
+          <el-option 
+          v-for="item in options.tiempo" 
+          :key="item.metric" 
+          :label="item.metric" 
+          :value="item.metric">
+          </el-option>
+        </el-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button class="btn btn-primary" @click="getData">Cargar datos</button>
+        <br><br>
+        <ve-line
+          :data="chartData"
+          v-loading="isLoading"
+          :data-empty="dataEmpty"
+          >
+        </ve-line>
+      </div>
     </div>
   </div>
-
 </div>
 
 </template>
@@ -42,24 +49,7 @@
 <script>
   import {Select, Option, Form, FormItem, Table, TableColumn} from 'element-ui'
   import {WebUtils} from "../../lib/webUtils"
-
-
-  const DATA_FROM_BACKEND = {
-    columns: ['date', 'PV', '212', 'hla'],
-    rows: [
-      { 'date': '2018-05-22', 'PV': 32371},
-      { 'date': '2018-05-23', 'PV': 12328},
-      { 'date': '2018-05-24', 'PV': 92381}
-    ]
-  }
-  const EMPTY_DATA = {
-    columns: ['date', 'PV', '212', 'hla'],
-    rows: [
-      { 'date': '2018-05-22', 'PV': 90000},
-      { 'date': '2018-05-23', 'PV': 50000},
-      { 'date': '2018-05-24', 'PV': 12381}
-    ]
-  }
+  
   export default {
     components: {
       [Table.name]: Table,
@@ -70,9 +60,6 @@
       [Select.name]: Select
     },
     data() {
-      this.chartSettings = {
-        yAxisType: ['0,0a']
-      }
       return {
         rawData: [
           {'01':[]},{'02':[]},{'03':[]},{'04':[]},
@@ -90,7 +77,7 @@
             {id: '2', metric: 'Anual'}
           ]
         },
-        tipoProducto: '',
+        tipoProducto: null,
         medidaTiempo: 'Mensual',
         chartData: {
           columns: [],
@@ -104,10 +91,11 @@
     },
     methods: {
       getData () {
+      
         let index = 0
         this.isLoading = true
         
-        this.$http.get('api/productos-mensuales/' + this.tipoProducto + '/2009')
+        this.$http.get('api/productos-mensuales/' + this.tipoProducto + '/2010')
         .then(response => {
           response.body.forEach(obj => {
             
@@ -122,14 +110,6 @@
           this.chartData = this.formatedData
           this.isLoading = false
         })
-        /*
-        setTimeout(() => {
-          this.chartData = this.chartData.rows.length
-            ? EMPTY_DATA
-            : DATA_FROM_BACKEND
-          this.dataEmpty = !this.chartData.rows.length
-          this.isLoading = false
-        }, 1000) */
       },
       loadProducts () {
         this.options.tipoProducto = []
@@ -176,7 +156,7 @@
     },
     watch: {
       'medidaTiempo' (newVal, OldVal) {
-        console.log(this.medidaTiempo)
+        // console.log(this.medidaTiempo)
       },
       'tipoProducto' (newVal, OldVal) {
         this.productos = []

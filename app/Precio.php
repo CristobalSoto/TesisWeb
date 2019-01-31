@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Precio extends Model
 {
     protected $table = ('odepa_precios');
-    protected $hidden = ['variedad', 'calidad', 'precio_mínimo', 'precio_máximo', 'semana', 'procedencia'];
+    protected $hidden = ['variedad', 'calidad', 'precio_mínimo', 'precio_máximo', 'procedencia'];
 
 }

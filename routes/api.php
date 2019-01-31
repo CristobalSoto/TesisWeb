@@ -22,7 +22,8 @@ Route::apiResource('precios', 'PrecioController');
 
 Route::get('precios-search/{tipoProducto}/{producto}', 'PrecioController@custom');
 Route::get('precios-search/{tipoProducto}', 'PrecioController@productoData');
-Route::get('precios-search/{tipoProducto}/{producto}/{sector}', 'PrecioController@productoSector');
+Route::get('precios-search/{tipoProducto}/{producto}/{sector}/{cantidad}', 'PrecioController@productoSector');
+
 Route::get('productos-mensuales/{tipoProducto}/{ano}', 'PrecioController@productosMensuales');
 
 Route::get('regiones', 'DatosParametricosController@regiones');
@@ -30,3 +31,5 @@ Route::get('sectores/{region}', 'DatosParametricosController@sectores');
 
 Route::get('tipos-producto', 'DatosParametricosController@tiposProducto');
 Route::get('productos/{tipoProducto}', 'DatosParametricosController@productos');
+
+Route::get('puntos-monitoreo/{tipoProducto}', 'DatosParametricosController@puntosMonitoreo');

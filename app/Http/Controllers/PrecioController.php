@@ -63,11 +63,13 @@ class PrecioController extends Controller
       return $precios;
     }
 
-    public function productoSector($tipoProducto, $producto, $sector) 
+    public function productoSector($tipoProducto, $producto, $sector, $cantidad) 
     {
       $precios = Precio::where('tipo_producto', $tipoProducto)
                         ->where('producto', $producto)
                         ->where('sector', $sector)
+                        ->take($cantidad)
+                        ->orderBy('id', 'desc')
                         ->get();
                         
       return $precios;
