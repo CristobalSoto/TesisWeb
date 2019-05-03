@@ -39,12 +39,12 @@ class DatosParametricosController extends Controller
     }
 
     public function puntosMonitoreo($tipoProducto) {
-      $tiposProducto = DB::table('odepa_precios')
+      $puntosMonitoreo = DB::table('odepa_precios')
                                           ->select(DB::raw('distinct tipo_punto_monitoreo'))
                                           ->where('tipo_producto', $tipoProducto)
                                           ->get();
 
-      return $tiposProducto;
+      return $puntosMonitoreo;
     }
   
 }

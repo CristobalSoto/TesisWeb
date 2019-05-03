@@ -6,27 +6,12 @@ use Illuminate\Http\Request;
 
 class PrecioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
       return Precio::All();
-      /*
-        return response()->json(
-            $precio = Precio::query()
-                ->get(),200);
-      */
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Precio  $precio
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         return $precio = Precio::findOrFail($id);
@@ -50,6 +35,16 @@ class PrecioController extends Controller
                         where('tipo_producto', $tipoProducto)
                         ->where('fecha_inicio', 'LIKE', $anoQuery)
                         ->get(); 
+                        
+      return $precios;
+    }
+
+    public function productosRegion($tipoProducto, $ano) {
+
+      $anoQuery = '%'.$ano.'%';
+      $precios = Precio::where('tipo_producto', $tipoProducto)
+                        ->where('fecha_inicio', 'LIKE', $anoQuery)
+                        ->get();
                         
       return $precios;
     }

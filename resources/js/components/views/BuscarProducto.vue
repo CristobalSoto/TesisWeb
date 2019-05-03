@@ -1,10 +1,8 @@
 <template>
 <div>
-
   <div class="row">
     <h1 class="col-md-12 mt-4 mb-5" >Seleccione su ubicación y el producto</h1>
   </div>
-
   <div class="row">
     <div class="col-md-1">
       <label class="typo__label">Region</label>
@@ -25,7 +23,6 @@
       </el-select>
     </div>
   </div>
-
   <div class="row mt-4">
     <div class="col-md-1">
       <label class="typo__label">Tipo producto</label>
@@ -107,7 +104,6 @@
         this.options.regiones = []
         this.$http.get('api/regiones')
         .then(response => {
-          // console.log(response.body)
           response.body.forEach(element => {
             this.options.regiones.push({region: element.region})
           });
@@ -118,7 +114,6 @@
         this.options.sectores = []
         this.$http.get('api/sectores/' + this.region)
         .then(response => {
-          // console.log(response.body)
           response.body.forEach(element => {
             this.options.sectores.push({sector: element.sector})
           });
@@ -128,7 +123,6 @@
         this.options.tipoProducto = []
         this.$http.get('api/tipos-producto')
         .then(response => {
-          // console.log(response.body)
           response.body.forEach(element => {
             this.options.tiposProducto.push({tipoProducto: element.tipo_producto})
           });
@@ -139,7 +133,6 @@
         this.options.productos = []
         this.$http.get('api/productos/' + this.tipoProducto)
         .then(response => {
-          // console.log(response.body)
           response.body.forEach(element => {
             this.options.productos.push({producto: element.producto})
           });
@@ -148,9 +141,8 @@
       loadPuntosMonitoreo () {
         this.puntosMonitoreo = []
 
-        this.$http.get('api/puntos-monitoreo/' + this.tipoProducto)
+        this.$http.get('api/puntos-monitoreo/' + this.tipoProducto + '/' + this.producto)
         .then(response => {
-          // console.log(response.body)
           response.body.forEach(element => {
             this.puntosMonitoreo.push(element.tipo_punto_monitoreo)
           });
@@ -160,13 +152,11 @@
       getProduct () {
         this.tableProductData = []
         let cantidad = this.puntosMonitoreo.length
+        console.log('api/precios-search/' + this.tipoProducto + "/" + this.producto + "/" + this.sector + "/" + cantidad)
         this.$http.get('api/precios-search/' + this.tipoProducto + "/" + this.producto + "/" + this.sector + "/" + cantidad)
         .then(response => {
-          // console.log(response.body)
           let cheaper = 1000000
           response.body.forEach(objCheap => {
-            // console.log(objCheap.precio_promedio)
-            // cheaper = cheaper <= objCheap.precio_promedio ? objCheap.precio_promedio : cheaper
             if (cheaper >= objCheap.precio_promedio) {
               cheaper = objCheap.precio_promedio
             }
@@ -194,6 +184,8 @@
     watch: {
       'tipoProducto' (newVal, OldVal) {
         this.loadProduct()
+      },
+      'producto' (newVal, OldVal) {
         this.loadPuntosMonitoreo()
       },
       'region' (newVal, OldVal) {
