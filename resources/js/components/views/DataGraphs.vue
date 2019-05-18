@@ -13,6 +13,14 @@
               :value="item.ano">
             </el-option>
         </el-select>
+        <el-select v-model="tipoProducto" :loading="loadingProducts" placeholder="Productos">
+            <el-option
+              v-for="item in options.tipoProducto"
+              :key="item.nombre"
+              :label="item.nombre"
+              :value="item.nombre"
+            ></el-option>
+          </el-select>
       </div>
     </div>
     <div class="card">
@@ -21,14 +29,6 @@
           <h5 class="card-title ml-1">Variación productos en el tiempo</h5>
         </div>
         <div class="col-md-6 mt-4">
-          <el-select v-model="tipoProducto" placeholder="Productos">
-            <el-option
-              v-for="item in options.tipoProducto"
-              :key="item.nombre"
-              :label="item.nombre"
-              :value="item.nombre"
-            ></el-option>
-          </el-select>
           <el-select v-model="medidaTiempo" placeholder="Tiempo">
             <el-option
               v-for="item in options.tiempo"
@@ -79,7 +79,7 @@
           <p class="text-danger ml-2 mt-2" v-if="errorRegion">Debe seleccionar la región</p>
           <br>
           <br>
-          <ve-line :data="chartDataProductosRegion" :extend="extend" v-loading="isLoading" :data-empty="dataEmpty"></ve-line>
+          <ve-line :data="chartDataProductosRegion" :extend="extend" v-loading="loadingProductsxRegion" :data-empty="dataEmpty"></ve-line>
         </div>
       </div>
     </div>
@@ -145,6 +145,8 @@ export default {
         rows: []
       },
       isLoading: false,
+      loadingProductsxRegion: false,
+      loadingProducts: false,
       dataEmpty: false,
       errorProductos: false,
       errorRegion: false,
@@ -192,7 +194,7 @@ export default {
         this.errorRegion = false;
       }
       let index = 0;
-      this.isLoading = true;
+      this.loadingProductsxRegion = true;
 
       this.$http.get("api/productos-region/" + this.tipoProducto + "/" + this.ano)
         .then(response => {
@@ -205,15 +207,17 @@ export default {
           console.log(this.rawDataRegiones)
           this.formatDataRegiones();
           this.chartDataProductosRegion = this.formatedDataRegiones;
-          this.isLoading = false;
+          this.loadingProductsxRegion = false;
         });
     },
     loadProducts() {
+      this.loadingProducts = true
       this.options.tipoProducto = [];
       this.$http.get("api/tipos-producto").then(response => {
         response.body.forEach(element => {
           this.options.tipoProducto.push({ nombre: element.tipo_producto });
         });
+        this.loadingProducts = false
       });
     },
     loadRegions() {
